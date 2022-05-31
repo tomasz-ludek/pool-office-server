@@ -32,6 +32,13 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
 
+   // implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.7")
+    // https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus
+    implementation("com.github.kochedykov:jlibmodbus:1.2.9.0")
+
+    implementation("com.ghgande:j2mod:3.1.1")
+
+
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
