@@ -25,29 +25,29 @@ class SimpleModbusRTURelay {
     // RS-485 mode (/RTS on (0) after sending)             -R
     //  writevalues...                                    0 or 1
 
-    fun setTest1() {
-        val sp = SerialParameters()
-        Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG)                 //debug enable
-        try {
-
-                sp.device = "/dev/ttyAMA1"     //                       /dev/ttyAMA1
-                sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600)   //   -b 9600
-                sp.dataBits = 8                          //0
-                sp.parity = SerialPort.Parity.NONE //                     -P none
-                sp.stopBits = 1                    //1
+   private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
+        val dev_list = SerialPortList.getPortNames()
+        if (dev_list.size > 0) {
+            var rez: String = ""
+            val sp = SerialParameters()
+            Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG)                 //debug enable
+            try {
+                sp.device =
+                    "/dev/ttyAMA1"     //                       /dev/ttyAMA1     -   device   the name(path) of the serial port
+                sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600)   //   -b 9600        - baud rate
+                sp.dataBits = 8                          //0                             -  the number of data bits
+                sp.parity = SerialPort.Parity.NONE //                     -P none        - parity check (NONE, EVEN, ODD, MARK, SPACE)
+                sp.stopBits = 1                    //1                                   -  the number of stop bits(1,2)
 
                 val m = ModbusMasterFactory.createModbusMasterRTU(sp)   //  -m rtu
-                    m.connect()   //   Probably a bug here.   Perhaps the parameters are not correct.
-              // println(m.isConnected)
-                val slaveId = 1 //                       slave address ?    -a 1
-                var offset = 4
-                val quantity = 1
+                m.connect()
 
+                val serverAddres: Int = 1   //         -a 1         serverAddress – a slave address
+                //val startAddress: Int = 1  //          -r #  ()          startAddress – reference address
+                //val dataOnOff: Int = 1                //   data 1 or 0
                 try {
-                    val registerValues = m.readHoldingRegisters(slaveId, offset, quantity)
-                    for (value in registerValues) {
-                        println("Address: " + offset++ + ", Value: " + value)
-                    }
+                    rez = m.writeSingleRegister(serverAddres,startAddress,dataOnOff).toString()
+                    /// or    writeSingleCoil()  true or false
                 } catch (e: RuntimeException) {
                     throw e
                 } catch (e: Exception) {
@@ -60,10 +60,35 @@ class SimpleModbusRTURelay {
                     }
                 }
 
-        } catch (e: RuntimeException) {
-            throw e
-        } catch (e: Exception) {
-            e.printStackTrace()
+            } catch (e: RuntimeException) {
+                throw e
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+             return rez
+    }else {return "No have port"}
+    }
+
+    fun onRelay(startAddress:Int):String{
+        val noPortStr = "No have port"
+        val relayOn = 1;
+       val rez:String = connectionToPort(startAddress,relayOn)
+        return if(rez == noPortStr){
+            noPortStr
+        }else{
+            rez
+        }
+    }
+
+    fun offRelay(startAddress:Int):String{
+        val noPortStr = "No have port"
+        val relayOff = 0;
+        val rez:String =   connectionToPort(startAddress,relayOff)
+        return if(rez == noPortStr){
+            noPortStr
+        }else{
+            rez
         }
     }
 }

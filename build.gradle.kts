@@ -29,9 +29,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-
+    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
-
    // implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.7")
     // https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus
     implementation("com.github.kochedykov:jlibmodbus:1.2.9.0")
@@ -39,10 +38,10 @@ dependencies {
     implementation("com.ghgande:j2mod:3.1.1")
 
 
-
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("org.mockito:mockito-core:3.+")
 
-    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
+
 
 }
