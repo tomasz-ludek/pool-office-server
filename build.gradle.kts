@@ -35,13 +35,12 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.kochedykov/jlibmodbus
     implementation("com.github.kochedykov:jlibmodbus:1.2.9.0")
 
-    implementation("com.ghgande:j2mod:3.1.1")
+   // implementation("com.ghgande:j2mod:3.1.1")
 
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    testImplementation("org.mockito:mockito-core:3.+")
-
-
+   // testImplementation("org.mockito:mockito-core:3.+")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
 }

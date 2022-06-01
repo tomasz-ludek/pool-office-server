@@ -25,7 +25,9 @@ class SimpleModbusRTURelay {
     // RS-485 mode (/RTS on (0) after sending)             -R
     //  writevalues...                                    0 or 1
 
-   private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
+
+//   fun must be a not private for  sam testing...
+    private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
         val dev_list = SerialPortList.getPortNames()
         if (dev_list.size > 0) {
             var rez: String = ""
