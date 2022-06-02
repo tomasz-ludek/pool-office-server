@@ -19,6 +19,16 @@ class ApplicationTest {
             assertEquals(40, bodyAsText().length)
         }
     }
+
+    @Test
+    fun testPoolInfoControllerBedAddress() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.get("/pool-info/user").apply {
+            assertEquals(HttpStatusCode.NotFound, status)
+        }
+    }
     @Test
     fun testSimpleModbusRTURelayFalseConnectionOnRelay() = testApplication {
         application {
@@ -39,7 +49,6 @@ class ApplicationTest {
             assertEquals("No have port", SimpleModbusRTURelay().offRelay(1))
         }
     }
-
 
     @Test
     fun testSimpleOnRelay(){
@@ -85,4 +94,43 @@ class ApplicationTest {
 //        //verify(smor, atLeast(2)).offRelay(1)
 //    }
 
+    @Test
+    fun testSimpleModbusRTURelayFalseConnectionOnRelaySpy() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.post("/relay/0/1").apply {
+            val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+            `when`(smor.onRelay(1)).thenReturn("Test")
+            smor.onRelay(1)
+            verify(smor).onRelay(1)
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("Test", smor.onRelay(1))
+        }
+    }
+
+    @Test
+    fun testSimpleModbusRTURelayFalseConnectionOffRelaySpy() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.post("/relay/0/1").apply {
+            val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+            `when`(smor.offRelay(1)).thenReturn("Test")
+            smor.offRelay(1)
+            verify(smor).offRelay(1)
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("Test", smor.offRelay(1))
+        }
+    }
+
+    @Test
+    fun testSimpleModbusRTURelayFalseConnectionBedAddress() = testApplication {
+        application {
+            configureRouting()
+        }
+        client.post("/relay/0/1/1").apply {
+            assertEquals(HttpStatusCode.NotFound, status)
+        }
+    }
 }
