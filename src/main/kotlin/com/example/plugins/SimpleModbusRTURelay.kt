@@ -7,25 +7,19 @@ import com.intelligt.modbus.jlibmodbus.serial.SerialParameters
 import com.intelligt.modbus.jlibmodbus.serial.SerialPort
 import jssc.SerialPortList
 
-// mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 1 -R /dev/ttyAMA1 1
-//   -v            Verbose mode.  Causes mbpoll to print debugging messages about  its progress.  This is helpful in debugging connection...
-// -a #(1)          Slave address (1-255 for rtu, 0-255 for tcp, 1 is default) for reading, it is possible to give an address list
-// -b #  (9600)        Baudrate (1200-921600, 19200 is default)
-//  -m #  (rtu)        mode (rtu or tcp, TCP is default)
-// -t 0          Discrete output (coil) data type (binary 0 or 1)
-//  -P #  (none)        Parity (none, even, odd, even is default)
-// -r #  (1)  (first rely)      Start reference (1 is default)
-//  -R            RS-485 mode (/RTS on (0) after sending)
-//   /dev/ttyAMA1             device
-//  1 or 0                  write values
+/* mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 1 -R /dev/ttyAMA1 1
+   -v            Verbose mode.  Causes mbpoll to print debugging messages about  its progress.  This is helpful in debugging connection...
+ -a #(1)          Slave address (1-255 for rtu, 0-255 for tcp, 1 is default) for reading, it is possible to give an address list
+ -b #  (9600)        Baudrate (1200-921600, 19200 is default)
+  -m #  (rtu)        mode (rtu or tcp, TCP is default)
+ -t 0          Discrete output (coil) data type (binary 0 or 1)
+  -P #  (none)        Parity (none, even, odd, even is default)
+ -r #  (1)  (first rely)      Start reference (1 is default)
+  -R            RS-485 mode (/RTS on (0) after sending)
+   /dev/ttyAMA1             device
+  1 or 0                  write values
+ */
 class SimpleModbusRTURelay {
-
-    // Discrete output (coil) data type (binary 0 or 1)   -t 0
-    // Start reference (1 is default)                     -r 4
-    // RS-485 mode (/RTS on (0) after sending)             -R
-    //  writevalues...                                    0 or 1
-
-
 //   fun must be a not private for  sam testing...
     private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
         val dev_list = SerialPortList.getPortNames()
