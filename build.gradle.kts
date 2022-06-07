@@ -8,11 +8,10 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.21"
 }
 
-group = "com.example"
+group = "pl.ludek.poolserver"
 version = "0.0.1"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
-
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
@@ -29,13 +28,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
-
-
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
-
 }

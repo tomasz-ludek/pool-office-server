@@ -1,10 +1,12 @@
-package com.example
+package pl.ludek.poolserver
 
 import io.ktor.server.application.*
-import com.example.plugins.*
+import pl.ludek.poolserver.plugins.*
+import io.ktor.server.netty.*
+import pl.ludek.poolserver.plugins.configureRouting
 
 fun main(args: Array<String>): Unit =
-    io.ktor.server.netty.EngineMain.main(args)
+    EngineMain.main(args)
 
 @Suppress("unused")
 fun Application.module() {
