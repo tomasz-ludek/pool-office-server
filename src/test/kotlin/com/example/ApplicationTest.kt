@@ -15,6 +15,7 @@ import io.ktor.client.statement.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 import com.example.plugins.*
+import pl.ludek.poolserver.configureRouting
 
 class ApplicationTest {
     @Test

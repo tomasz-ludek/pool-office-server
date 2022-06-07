@@ -1,7 +1,7 @@
 package com.example
 
 import io.ktor.server.application.*
-import com.example.plugins.*
+import pl.ludek.poolserver.configureRouting
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)

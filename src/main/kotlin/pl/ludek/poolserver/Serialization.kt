@@ -1,4 +1,4 @@
-package com.example.plugins
+package pl.ludek.poolserver
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*

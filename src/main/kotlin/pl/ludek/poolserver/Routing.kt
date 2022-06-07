@@ -1,4 +1,4 @@
-package com.example.plugins
+package pl.ludek.poolserver
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -12,21 +12,3 @@ fun Application.configureRouting() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

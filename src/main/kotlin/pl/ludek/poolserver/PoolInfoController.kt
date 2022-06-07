@@ -1,4 +1,4 @@
-package com.example.plugins
+package pl.ludek.poolserver
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.Credentials
@@ -9,7 +9,7 @@ import java.io.IOException
 
 class PoolInfoController {
 
-    private data class JsonData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
+    private data class PoolInfoData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
 
     private fun dataFromSensor(): String? {
         val client = OkHttpClient.Builder().build()
@@ -43,7 +43,6 @@ class PoolInfoController {
             if(i == number2-1){
                 rez += "."+ subString[i]
             }else{rez += subString[i]}
-
         }
         return rez
     }
@@ -55,8 +54,8 @@ class PoolInfoController {
         val t3 = "891_"
         val p1 = "975_"
         val data: String = dataFromSensor().toString()
-        val dataInit:JsonData =
-            JsonData(
+        val dataInit: PoolInfoData =
+            PoolInfoData(
                 dataFromString(data, t1).toFloat(),
                 dataFromString(data, t2).toFloat(),
                 dataFromString(data, t3).toFloat(),
@@ -65,7 +64,4 @@ class PoolInfoController {
         val jsonObj =mapper.writeValueAsString(dataInit)
         return jsonObj
     }
-
-
-
 }
