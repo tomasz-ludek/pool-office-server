@@ -8,10 +8,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
 class PoolInfoController {
+@kotlinx.serialization.Serializable
+     data class JsonData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
 
-    private data class JsonData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
-
-    private fun dataFromSensor(): String? {
+        private fun dataFromSensor(): String? {
         val client = OkHttpClient.Builder().build()
         val urlBase = "http://192.168.2.169/user/cgi-bin/edition.cgi"
         val username = "ludex"
@@ -48,7 +48,7 @@ class PoolInfoController {
         return rez
     }
 
-    fun  answerServer(): String? {
+    fun  answerServer(): JsonData {
         val mapper = jacksonObjectMapper()
         val t1 = "889_"
         val t2 = "890_"
@@ -62,8 +62,8 @@ class PoolInfoController {
                 dataFromString(data, t3).toFloat(),
                 dataFromString(data, p1).toFloat()
             )
-        val jsonObj =mapper.writeValueAsString(dataInit)
-        return jsonObj
+       // val jsonObj =mapper.writeValueAsString(dataInit)
+        return dataInit
     }
 
 
