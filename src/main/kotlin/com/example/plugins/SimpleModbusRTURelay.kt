@@ -21,7 +21,7 @@ import jssc.SerialPortList
  */
 class SimpleModbusRTURelay {
 //   fun must be a not private for  sam testing...
-    private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
+    private fun connectionToPort(startAddress:Int, dataOnOff:Int ):Boolean {
         val dev_list = SerialPortList.getPortNames()
         if (dev_list.size > 0) {
             var rez: String = ""
@@ -55,36 +55,27 @@ class SimpleModbusRTURelay {
                         e1.printStackTrace()
                     }
                 }
-
             } catch (e: RuntimeException) {
                 throw e
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            return rez.length == 0
 
-             return rez
-    }else {return "No have port"}
+    }else {return true}
     }
 
-    fun onRelay(startAddress:Int):String{
-        val noPortStr = "No have port"
-        val relayOn = 1;
-       val rez:String = connectionToPort(startAddress,relayOn)
-        return if(rez == noPortStr){
-            noPortStr
-        }else{
-            rez
-        }
+    fun onRelay(startAddress:Int):AnswerRelay{
+        val relayOn = 1
+        val rez:Boolean = connectionToPort(startAddress,relayOn)
+        return AnswerRelay(startAddress,relayOn,rez)
     }
 
-    fun offRelay(startAddress:Int):String{
-        val noPortStr = "No have port"
+    fun offRelay(startAddress:Int):AnswerRelay{
         val relayOff = 0;
-        val rez:String =   connectionToPort(startAddress,relayOff)
-        return if(rez == noPortStr){
-            noPortStr
-        }else{
-            rez
-        }
+        val rez:Boolean =   connectionToPort(startAddress,relayOff)
+        return AnswerRelay(startAddress,relayOff,rez)
     }
 }
+@kotlinx.serialization.Serializable
+data class AnswerRelay(val relayNumber: Int, val stateRelay:Int, val errorRelay:Boolean)
