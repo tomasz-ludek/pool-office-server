@@ -1,11 +1,12 @@
 package com.example.plugins
 
 import com.intelligt.modbus.jlibmodbus.Modbus
-import com.intelligt.modbus.jlibmodbus.ModbusMasterFactory
 import com.intelligt.modbus.jlibmodbus.exception.ModbusIOException
-import com.intelligt.modbus.jlibmodbus.serial.SerialParameters
-import com.intelligt.modbus.jlibmodbus.serial.SerialPort
+import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory
+import com.intelligt.modbus.jlibmodbus.serial.*
+import com.intelligt.modbus.jlibmodbus.tcp.TcpParameters
 import jssc.SerialPortList
+import java.net.InetAddress
 
 /* mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 1 -R /dev/ttyAMA1 1
    -v            Verbose mode.  Causes mbpoll to print debugging messages about  its progress.  This is helpful in debugging connection...
@@ -22,27 +23,45 @@ import jssc.SerialPortList
 class SimpleModbusRTURelay {
 //   fun must be a not private for  sam testing...
     private fun connectionToPort(startAddress:Int, dataOnOff:Int ):String {
+
         val dev_list = SerialPortList.getPortNames()
         if (dev_list.size > 0) {
             var rez: String = ""
             val sp = SerialParameters()
-            Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG)                 //debug enable
+            Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG) //debug enable
+
             try {
-                sp.device =
-                    "/dev/ttyAMA1"     //                       /dev/ttyAMA1     -   device   the name(path) of the serial port
+                sp.device = "/dev/ttyAMA1"     //                       /dev/ttyAMA1     -   device   the name(path) of the serial port
                 sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600)   //   -b 9600        - baud rate
                 sp.dataBits = 8                          //0                             -  the number of data bits
                 sp.parity = SerialPort.Parity.NONE //                     -P none        - parity check (NONE, EVEN, ODD, MARK, SPACE)
                 sp.stopBits = 1                    //1                                   -  the number of stop bits(1,2)
+                SerialUtils.setSerialPortFactory(SerialPortFactoryJSSC())
+              //  SerialUtils.setSerialPortFactory(SerialPortFactoryPJC())
+             //  SerialUtils.setSerialPortFactory(SerialPortFactoryRXTX())
 
-                val m = ModbusMasterFactory.createModbusMasterRTU(sp)   //  -m rtu
-                m.connect()
+                // val tcpParameter: TcpParameters = TcpParameters()
+               /// val host: InetAddress = InetAddress.getLocalHost()
+               // tcpParameter.host = host
+              //  tcpParameter.port = 2048
+               // tcpParameter.isKeepAlive = true
+
+               // SerialUtils.setSerialPortFactory(SerialPortFactoryTcpClient(tcpParameter))
+
+
+                // SerialUtils.setSerialPortFactory(SerialPortFactoryRXTX())
+               val master = ModbusMasterFactory.createModbusMasterRTU(sp)   //  -m rtu
+                master.connect()
+
+
+               // val por =ModbusMasterFactory.createModbusMasterRTU(sp)
 
                 val serverAddres: Int = 1   //         -a 1         serverAddress – a slave address
                 //val startAddress: Int = 1  //          -r #  ()          startAddress – reference address
                 //val dataOnOff: Int = 1                //   data 1 or 0
                 try {
-                    rez = m.writeSingleRegister(serverAddres,startAddress,dataOnOff).toString()
+                   // m.writeSingleRegister(serverAddres,startAddress,dataOnOff)
+                    master.writeSingleCoil(serverAddres,startAddress,true)
                     /// or    writeSingleCoil()  true or false
                 } catch (e: RuntimeException) {
                     throw e
@@ -50,7 +69,7 @@ class SimpleModbusRTURelay {
                     e.printStackTrace()
                 } finally {
                     try {
-                        m.disconnect()
+                        master.disconnect()
                     } catch (e1: ModbusIOException) {
                         e1.printStackTrace()
                     }

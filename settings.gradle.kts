@@ -1,1 +1,1 @@
-rootProject.name = "ktor-sample2"
+rootProject.name = "pool-office-server"
