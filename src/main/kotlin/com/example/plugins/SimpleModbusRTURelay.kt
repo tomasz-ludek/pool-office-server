@@ -1,14 +1,12 @@
 package com.example.plugins
 
+
 import com.intelligt.modbus.jlibmodbus.Modbus
-import com.intelligt.modbus.jlibmodbus.data.ModbusHoldingRegisters
 import com.intelligt.modbus.jlibmodbus.exception.ModbusIOException
+import com.intelligt.modbus.jlibmodbus.master.ModbusMaster
 import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory
-import com.intelligt.modbus.jlibmodbus.msg.request.ReadHoldingRegistersRequest
-import com.intelligt.modbus.jlibmodbus.serial.SerialParameters
-import com.intelligt.modbus.jlibmodbus.serial.SerialPort
-import com.intelligt.modbus.jlibmodbus.serial.SerialPortFactoryJSSC
-import com.intelligt.modbus.jlibmodbus.serial.SerialUtils
+import com.intelligt.modbus.jlibmodbus.net.stream.OutputStreamRTU
+import com.intelligt.modbus.jlibmodbus.serial.*
 import com.intelligt.modbus.jlibmodbus.utils.DataUtils
 import com.intelligt.modbus.jlibmodbus.utils.FrameEvent
 import com.intelligt.modbus.jlibmodbus.utils.FrameEventListener
@@ -31,7 +29,7 @@ class SimpleModbusRTURelay {
     private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):String {
 
         val dev_list = SerialPortList.getPortNames()
-        if (dev_list.size > 0) {
+        if (true) {     //dev_list.size > 0
             var rez: String = ""
 
 
@@ -41,12 +39,11 @@ class SimpleModbusRTURelay {
 
                 val sp = SerialParameters()
 
-              // SerialUtils.trySelectConnector()
 
 
-               // SerialUtils.createSerial(sp.)
-                // jssc.SerialPort.FLOWCONTROL_RTSCTS_IN
-              //  jssc.SerialPort.FLOWCONTROL_RTSCTS_OUT
+
+
+
 
                 sp.device = "/dev/ttyAMA1"     //                       /dev/ttyAMA1     -   device   the name(path) of the serial port
                 sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600)   //   -b 9600        - baud rate
@@ -54,47 +51,36 @@ class SimpleModbusRTURelay {
                 sp.parity = SerialPort.Parity.NONE //                     -P none        - parity check (NONE, EVEN, ODD, MARK, SPACE)
                 sp.stopBits = 1                    //1                                   -  the number of stop bits(1,2)
 
-                 SerialUtils.setSerialPortFactory(SerialPortFactoryJSSC())
-                     jssc.SerialPort.FLOWCONTROL_RTSCTS_IN
-                //  SerialUtils.setSerialPortFactory(SerialPortFactoryJSerialComm())
-                 //SerialUtils.setSerialPortFactory(SerialPortFactoryRXTX())
-                // SerialUtils.setSerialPortFactory(SerialPortFactoryPJC())
-                //SerialUtils.setSerialPortFactory(SerialPortFactoryJavaComm())
+               // SerialUtils.setSerialPortFactory(SerialPortFactoryJSSCModify())      // mod
+               //   SerialUtils.setSerialPortFactory(SerialPortFactoryJSerialCommModify())  // mod
+               // SerialUtils.setSerialPortFactory(SerialPortFactoryPJCModify())    // mod
 
 
-
-               // SerialUtils.setSerialPortFactory(SerialPortFactoryJSerialComm(FLOW_CONTROL_CTS_ENABLE))
-
+               // SerialUtils.setSerialPortFactory(SerialPortFactoryRXTXModify())  //- dont have element
 
 
-                // SerialUtils.setSerialPortFactory(SerialPortFactoryRXTX())
+              //  SerialUtils.setSerialPortFactory(SerialPortFactoryJavaComm()) // in case of using serial-to-wifi adapter
+
+//
+//                serialPort.openPort()
+//               /// println(serialPort.isOpened)
+//               serialPort.closePort()
+
+
                val master = ModbusMasterFactory.createModbusMasterRTU(sp) //  -m rtu
-               // val slave = ModbusSlaveFactory.createModbusSlaveRTU(sp)
+
+               // master.addListener(listener)
 
 
-
-
-                val listener: FrameEventListener = object : FrameEventListener {
-                    override fun frameSentEvent(event: FrameEvent) {
-                        System.out.println("frame sent " + DataUtils.toAscii(event.getBytes()))
-                    }
-
-                    override fun frameReceivedEvent(event: FrameEvent) {
-                        System.out.println("frame recv " + DataUtils.toAscii(event.getBytes()))
-                    }
-                }
-
-
-                master.addListener(listener)
                 master.connect()
 
-                val holdingRegisters:ModbusHoldingRegisters = ModbusHoldingRegisters(1000)
-
-                for (i in 0 until holdingRegisters.quantity) {
-                    //fill
-                    holdingRegisters[i] = i + 1
-                }
-                holdingRegisters.setFloat64At(0, Math.PI);
+//                val holdingRegisters:ModbusHoldingRegisters = ModbusHoldingRegisters(1000)
+//
+//                for (i in 0 until holdingRegisters.quantity) {
+//                    //fill
+//                    holdingRegisters[i] = i + 1
+//                }
+//                holdingRegisters.setFloat64At(0, Math.PI);
 
                 // slave.dataHolder.writeCoil()
 
@@ -152,4 +138,25 @@ class SimpleModbusRTURelay {
             rez
         }
     }
+
+ fun createCustomPort(){
+     val deviceName = "/dev/ttyAMA1"
+     val baudrate = SerialPort.BaudRate.BAUD_RATE_9600.value
+     val dataBits = 8
+     val stopBit = 1
+     val parity = SerialPort.Parity.NONE.value
+     val rts = true
+     val dts = true
+
+     val port = jssc.SerialPort(deviceName)
+     port.openPort()
+     port.setParams(baudrate,dataBits,stopBit,parity,rts,dts)
+     port.setFlowControlMode(jssc.SerialPort.FLOWCONTROL_RTSCTS_IN)
+
+
+
+
+ }
+
 }
+

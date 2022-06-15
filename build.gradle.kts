@@ -31,9 +31,15 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
-    implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.1")
-    //implementation("com.github.kochedykov:jlibmodbus:1.2.9.7")
 
+    //implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.5")
+    implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.1")
+    //implementation("com.github.kochedykov:jlibmodbus:1.2.9.1")
+
+    //implementation("com.ghgande:j2mod:2.7.0")
+   // implementation("com.github.infiniteautomation:modbus4j:v2.0.7")
+
+    implementation("org.rxtx:rxtx:2.1.7")
 
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
