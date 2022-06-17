@@ -48,7 +48,7 @@ class PoolInfoController {
         return rez
     }
 
-    fun  answerServer(): JsonData {
+    fun  answerServer(): PoolInfoData {
         val mapper = jacksonObjectMapper()
         val t1 = "889_"
         val t2 = "890_"

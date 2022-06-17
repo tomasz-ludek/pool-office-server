@@ -1,12 +1,11 @@
 package pl.ludek.poolserver.plugins
 import io.ktor.server.routing.*
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 
 fun Application.configureRouting() {
-    val poolInfoController: PoolInfoController = PoolInfoController()
-    val simpleModbusRTURelay:SimpleModbusRTURelay = SimpleModbusRTURelay();
+    val poolInfoController = PoolInfoController()
+    val simpleModbusRTURelay = SimpleModbusRTURelay()
     routing {
         get("/pool-info"){
             return@get call.respond(poolInfoController.answerServer())
