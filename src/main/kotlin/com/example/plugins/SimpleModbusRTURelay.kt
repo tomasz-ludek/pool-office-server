@@ -1,25 +1,18 @@
 package com.example.plugins
 
-
-import com.intelligt.modbus.jlibmodbus.Modbus
-import com.intelligt.modbus.jlibmodbus.exception.ModbusIOException
-import com.intelligt.modbus.jlibmodbus.master.ModbusMaster
-import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory
-import com.intelligt.modbus.jlibmodbus.net.stream.OutputStreamRTU
-import com.intelligt.modbus.jlibmodbus.serial.*
-import com.intelligt.modbus.jlibmodbus.utils.DataUtils
-import com.intelligt.modbus.jlibmodbus.utils.FrameEvent
-import com.intelligt.modbus.jlibmodbus.utils.FrameEventListener
+import com.ghgande.j2mod.modbus.facade.ModbusSerialMaster
+import com.ghgande.j2mod.modbus.net.AbstractSerialConnection
+import com.ghgande.j2mod.modbus.util.SerialParameters
 import jssc.SerialPortList
 
 /* mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 1 -R /dev/ttyAMA1 1
    -v            Verbose mode.  Causes mbpoll to print debugging messages about  its progress.  This is helpful in debugging connection...
  -a #(1)          Slave address (1-255 for rtu, 0-255 for tcp, 1 is default) for reading, it is possible to give an address list
- -b #  (9600)        Baudrate (1200-921600, 19200 is default)
-  -m #  (rtu)        mode (rtu or tcp, TCP is default)
+ -b #  (9600)        Baudrate (1200-921600, 19200 is default) +
+  -m #  (rtu)        mode (rtu or tcp, TCP is default) +
  -t 0          Discrete output (coil) data type (binary 0 or 1)
-  -P #  (none)        Parity (none, even, odd, even is default)
- -r #  (1)  (first rely)      Start reference (1 is default)
+  -P #  (none)        Parity (none, even, odd, even is default) +
+ -r #  (1)  (first rely)      Start reference (1 is default) +
   -R            RS-485 mode (/RTS on (0) after sending)
    /dev/ttyAMA1             device
   1 or 0                  write values
@@ -27,93 +20,48 @@ import jssc.SerialPortList
 class SimpleModbusRTURelay {
 //   fun must be a not private for  sam testing...
     private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):String {
-
         val dev_list = SerialPortList.getPortNames()
-        if (true) {     //dev_list.size > 0
-            var rez: String = ""
-
-
-
+        if (dev_list.size !=0) {
+            var serialParameters: SerialParameters? = null
+            var master: ModbusSerialMaster? = null
+            val deviceName = "/dev/ttyAMA1"
+            val baudrate = 9600
+            val dataBits = 8
+            val stopBit = AbstractSerialConnection.ONE_STOP_BIT
+            val encoding = com.ghgande.j2mod.modbus.Modbus.SERIAL_ENCODING_RTU
+            val parity = AbstractSerialConnection.NO_PARITY
+            val paramsEcho = false
+            val flowControlIn = AbstractSerialConnection.FLOW_CONTROL_RTS_ENABLED
+            val flowControlOut = AbstractSerialConnection.FLOW_CONTROL_CTS_ENABLED
+            val rs485Mode = true
+            val openDelay = AbstractSerialConnection.OPEN_DELAY
+            val rs485TxEnableActiveHigh = true
+            // val rs485DelayBeforeTxMicroseconds
+            // val rs485DelayAfterTxMicroseconds
+            val untild = 1
+            var portNumber = startAddress - 1
             try {
-                Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG) //debug enable
-
-                val sp = SerialParameters()
-
-
-
-
-
-
-
-                sp.device = "/dev/ttyAMA1"     //                       /dev/ttyAMA1     -   device   the name(path) of the serial port
-                sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600)   //   -b 9600        - baud rate
-                sp.dataBits = 8                          //0                             -  the number of data bits
-                sp.parity = SerialPort.Parity.NONE //                     -P none        - parity check (NONE, EVEN, ODD, MARK, SPACE)
-                sp.stopBits = 1                    //1                                   -  the number of stop bits(1,2)
-
-               // SerialUtils.setSerialPortFactory(SerialPortFactoryJSSCModify())      // mod
-               //   SerialUtils.setSerialPortFactory(SerialPortFactoryJSerialCommModify())  // mod
-               // SerialUtils.setSerialPortFactory(SerialPortFactoryPJCModify())    // mod
-
-
-               // SerialUtils.setSerialPortFactory(SerialPortFactoryRXTXModify())  //- dont have element
-
-
-              //  SerialUtils.setSerialPortFactory(SerialPortFactoryJavaComm()) // in case of using serial-to-wifi adapter
-
-//
-//                serialPort.openPort()
-//               /// println(serialPort.isOpened)
-//               serialPort.closePort()
-
-
-               val master = ModbusMasterFactory.createModbusMasterRTU(sp) //  -m rtu
-
-               // master.addListener(listener)
-
-
+                serialParameters = com.ghgande.j2mod.modbus.util.SerialParameters()
+                serialParameters.portName = deviceName
+                serialParameters.baudRate = baudrate
+                serialParameters.databits = dataBits
+                serialParameters.stopbits = stopBit
+                serialParameters.parity = parity
+                serialParameters.encoding = encoding
+                serialParameters.isEcho = paramsEcho
+                serialParameters.rs485Mode = rs485Mode
+                // serialParameters.flowControlOut = flowControlOut
+                // serialParameters.flowControlIn = flowControlIn
+                // serialParameters.flowControlOut = flowControlOut
+                master =  ModbusSerialMaster(serialParameters)
                 master.connect()
-
-//                val holdingRegisters:ModbusHoldingRegisters = ModbusHoldingRegisters(1000)
-//
-//                for (i in 0 until holdingRegisters.quantity) {
-//                    //fill
-//                    holdingRegisters[i] = i + 1
-//                }
-//                holdingRegisters.setFloat64At(0, Math.PI);
-
-                // slave.dataHolder.writeCoil()
-
-
-               // val por =ModbusMasterFactory.createModbusMasterRTU(sp)
-
-                val serverAddres: Int = 1   //         -a 1         serverAddress – a slave address
-                //val startAddress: Int = 1  //          -r #  ()          startAddress – reference address
-                //val dataOnOff: Int = 1                //   data 1 or 0
-                try {
-                   // m.writeSingleRegister(serverAddres,startAddress,dataOnOff)
-                    master.writeSingleCoil(serverAddres,startAddress,dataOnOff)
-                    /// or    writeSingleCoil()  true or false
-                   // master.writeSingleRegister(serverAddres,startAddress,dataOnOff)
-                } catch (e: RuntimeException) {
-                    throw e
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    try {
-                        master.disconnect()
-                    } catch (e1: ModbusIOException) {
-                        e1.printStackTrace()
-                    }
-                }
-
-            } catch (e: RuntimeException) {
-                throw e
-            } catch (e: Exception) {
-                e.printStackTrace()
+                master.writeCoil(untild,portNumber,dataOnOff)
+            }catch (data:Exception ) {
+                return "No have port"
+            }finally {
+                if(master != null){master.disconnect()}
             }
-
-             return rez
+            return ("ok")
     }else {return "No have port"}
     }
 
@@ -138,25 +86,5 @@ class SimpleModbusRTURelay {
             rez
         }
     }
-
- fun createCustomPort(){
-     val deviceName = "/dev/ttyAMA1"
-     val baudrate = SerialPort.BaudRate.BAUD_RATE_9600.value
-     val dataBits = 8
-     val stopBit = 1
-     val parity = SerialPort.Parity.NONE.value
-     val rts = true
-     val dts = true
-
-     val port = jssc.SerialPort(deviceName)
-     port.openPort()
-     port.setParams(baudrate,dataBits,stopBit,parity,rts,dts)
-     port.setFlowControlMode(jssc.SerialPort.FLOWCONTROL_RTSCTS_IN)
-
-
-
-
- }
-
 }
 

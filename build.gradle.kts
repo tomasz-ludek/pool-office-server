@@ -19,6 +19,7 @@ application {
 
 repositories {
     mavenCentral()
+    google()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
 }
 
@@ -29,22 +30,13 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
-    implementation("com.squareup.okhttp3:okhttp:4.8.1")
-
-    //implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.5")
-    implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.1")
-    //implementation("com.github.kochedykov:jlibmodbus:1.2.9.1")
-
-    //implementation("com.ghgande:j2mod:2.7.0")
-   // implementation("com.github.infiniteautomation:modbus4j:v2.0.7")
-
-    implementation("org.rxtx:rxtx:2.1.7")
-
+    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.7")
+    implementation("com.ghgande:j2mod:3.1.1")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-   // testImplementation("org.mockito:mockito-core:3.+")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
 }
