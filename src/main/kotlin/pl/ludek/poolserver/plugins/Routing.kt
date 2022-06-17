@@ -33,16 +33,10 @@ fun Application.configureRouting() {
                 post("/1") {
                     // mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 256 -R /dev/ttyAMA1 1    r 256
                     return@post call.respond( simpleModbusRTURelay.onRelay(256))
-//               or simpleModbusRTURelay.onRelay(2)
-//               simpleModbusRTURelay.onRelay(5)
-//               simpleModbusRTURelay.onRelay(6)
                 }
                 post("/0") {
                     // mbpoll -v -a 1 -b 9600 -m rtu -t 0 -P none -r 256 -R /dev/ttyAMA1 0      r 256
                     return@post call.respond( simpleModbusRTURelay.offRelay(256))
-                //           or simpleModbusRTURelay.offRelay(2)
-//                           simpleModbusRTURelay.offRelay(5)
-//                           simpleModbusRTURelay.offRelay(6)
                 }
             }
         }
