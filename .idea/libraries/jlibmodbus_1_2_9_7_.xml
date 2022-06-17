@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jlibmodbus-1.2.9.7 ">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/jlibmodbus-1.2.9.7 .jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

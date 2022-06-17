@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f464c6b-57f3-48fc-a905-813e39bd19e1" name="Changes" comment="Fixed work errors." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ktor-sample2" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ktor-sample2" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="29eJCsD6oTFCxeYyW1ZGoLYuQND" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sergej/.m2/repository/jlibmodbus-1.2.9.7 .jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sergej\IdeaProjects\ktor-sample2\src\main\kotlin\pl\ludek\poolserver\plugins" />
+      <recent name="C:\Users\Sergej\IdeaProjects\ktor-sample2\src\test\resources\" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.example.plugins" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Kotlin.ApplicationKt (1)">
+    <configuration name="ApplicationTest.testSimpleModbusRTURelayFalseConnectionBedAddress" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.ApplicationTest.testSimpleModbusRTURelayFalseConnectionBedAddress&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationTest.testSimpleModbusRTURelayFalseConnectionOffRelaySpy" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.ApplicationTest.testSimpleModbusRTURelayFalseConnectionOffRelaySpy&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationTest.testSimpleModbusRTURelayFalseConnectionOnRelaySpy" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.example.ApplicationTest.testSimpleModbusRTURelayFalseConnectionOnRelaySpy&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.ApplicationKt" />
+      <module name="pool-office-server.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.ApplicationKt" />
+      <module name="ktor-sample2.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.ApplicationKt (1)" />
+        <item itemvalue="Kotlin.ApplicationKt" />
+        <item itemvalue="Gradle.ApplicationTest.testSimpleModbusRTURelayFalseConnectionOnRelaySpy" />
+        <item itemvalue="Gradle.ApplicationTest.testSimpleModbusRTURelayFalseConnectionOffRelaySpy" />
+        <item itemvalue="Gradle.ApplicationTest.testSimpleModbusRTURelayFalseConnectionBedAddress" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f464c6b-57f3-48fc-a905-813e39bd19e1" name="Changes" comment="" />
+      <created>1653467495781</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653467495781</updated>
+      <workItem from="1653467498461" duration="20636000" />
+      <workItem from="1653499717835" duration="2313000" />
+      <workItem from="1653503377972" duration="2612000" />
+      <workItem from="1653657412267" duration="3368000" />
+      <workItem from="1653918161584" duration="12669000" />
+      <workItem from="1653988970927" duration="23503000" />
+      <workItem from="1654070535767" duration="11886000" />
+      <workItem from="1654088387644" duration="8206000" />
+      <workItem from="1654100405787" duration="1541000" />
+      <workItem from="1654166949300" duration="1461000" />
+      <workItem from="1654177803025" duration="570000" />
+      <workItem from="1654178511556" duration="1144000" />
+      <workItem from="1654545897057" duration="3582000" />
+      <workItem from="1654618281194" duration="5593000" />
+      <workItem from="1654624809070" duration="6388000" />
+      <workItem from="1654678058792" duration="8515000" />
+      <workItem from="1654689632713" duration="1830000" />
+      <workItem from="1654694071305" duration="10267000" />
+      <workItem from="1654758227473" duration="19272000" />
+      <workItem from="1654797160707" duration="501000" />
+      <workItem from="1654856798579" duration="1452000" />
+      <workItem from="1654869627452" duration="24000" />
+      <workItem from="1655062230945" duration="999000" />
+      <workItem from="1655071500167" duration="21000" />
+      <workItem from="1655104355907" duration="6000" />
+      <workItem from="1655107849182" duration="1433000" />
+      <workItem from="1655124053552" duration="17002000" />
+      <workItem from="1655192176374" duration="34714000" />
+      <workItem from="1655277638418" duration="45177000" />
+      <workItem from="1655364473323" duration="24359000" />
+      <workItem from="1655404186578" duration="16971000" />
+      <workItem from="1655454743826" duration="15752000" />
+    </task>
+    <task id="LOCAL-00001" summary="Transition to object-oriented approach.">
+      <created>1653934168597</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1653934168597</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Init - SimpleModbusRTURelay  - not work">
+      <created>1654028881239</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654028881239</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixing problems with writing to the port, and adding the functionality to enable and disable the relay.">
+      <created>1654084957617</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654084957617</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added a few tests.">
+      <created>1654101772285</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654101772285</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added sam tests.">
+      <created>1654178219860</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654178219860</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixing minor bugs.">
+      <created>1654619641555</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1654619641555</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixing minor bugs.">
+      <created>1654625988445</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1654625988445</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Correction of identified errors.">
+      <created>1654630143520</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1654630143520</updated>
+    </task>
+    <task id="LOCAL-00009" summary="All server responses are converted to JSON">
+      <created>1654686099603</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1654686099603</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Simplify the server response.">
+      <created>1654687210876</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1654687210876</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixed server name.">
+      <created>1654694285933</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1654694285934</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add data">
+      <created>1654787641402</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1654787641403</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Corrected the responses from the relay.">
+      <created>1654794147589</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1654794147589</updated>
+    </task>
+    <task id="LOCAL-00014" summary="dont fix">
+      <created>1655208856744</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1655208856744</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add help class">
+      <created>1655320988222</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1655320988222</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fixed work errors.">
+      <created>1655467797520</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1655467797521</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop-old" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Transition to object-oriented approach." />
+    <MESSAGE value="Init - SimpleModbusRTURelay  - not work" />
+    <MESSAGE value="Fixing problems with writing to the port, and adding the functionality to enable and disable the relay." />
+    <MESSAGE value="Added a few tests." />
+    <MESSAGE value="Added sam tests." />
+    <MESSAGE value="Fixing minor bugs." />
+    <MESSAGE value="Correction of identified errors." />
+    <MESSAGE value="All server responses are converted to JSON" />
+    <MESSAGE value="Simplify the server response." />
+    <MESSAGE value="Fixed server name." />
+    <MESSAGE value="add data" />
+    <MESSAGE value="Corrected the responses from the relay." />
+    <MESSAGE value="dont fix" />
+    <MESSAGE value="add help class" />
+    <MESSAGE value="Fixed work errors." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed work errors." />
+  </component>
+</project>
