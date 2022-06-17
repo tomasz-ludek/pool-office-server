@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.21"
 }
 
-group = "com.example"
+group = "pl.ludek.poolserver"
 version = "0.0.1"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
@@ -35,8 +35,10 @@ dependencies {
     implementation ("com.intelligt.modbus:jlibmodbus:1.2.9.7")
     implementation("com.ghgande:j2mod:3.1.1")
 
+   // implementation("com.ghgande:j2mod:3.1.1")
+    implementation("io.ktor:ktor-serialization-kotlinx-cbor:$ktor_version")
+
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-
 }

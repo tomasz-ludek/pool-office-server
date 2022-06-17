@@ -1,4 +1,4 @@
-package com.example.plugins
+package pl.ludek.poolserver.plugins
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.Credentials
@@ -8,10 +8,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
 class PoolInfoController {
+@kotlinx.serialization.Serializable
+     data class PoolInfoData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
 
-    private data class JsonData (val t1: Float, val t2:Float, val t3: Float, val p1: Float)
-
-    private fun dataFromSensor(): String? {
+        private fun dataFromSensor(): String? {
         val client = OkHttpClient.Builder().build()
         val urlBase = "http://192.168.2.169/user/cgi-bin/edition.cgi"
         val username = "ludex"
@@ -48,24 +48,21 @@ class PoolInfoController {
         return rez
     }
 
-    fun  answerServer(): String? {
+    fun  answerServer(): JsonData {
         val mapper = jacksonObjectMapper()
         val t1 = "889_"
         val t2 = "890_"
         val t3 = "891_"
         val p1 = "975_"
         val data: String = dataFromSensor().toString()
-        val dataInit:JsonData =
-            JsonData(
+        val dataInit: PoolInfoData =
+            PoolInfoData(
                 dataFromString(data, t1).toFloat(),
                 dataFromString(data, t2).toFloat(),
                 dataFromString(data, t3).toFloat(),
                 dataFromString(data, p1).toFloat()
             )
-        val jsonObj =mapper.writeValueAsString(dataInit)
-        return jsonObj
+       // val jsonObj =mapper.writeValueAsString(dataInit)
+        return dataInit
     }
-
-
-
 }
