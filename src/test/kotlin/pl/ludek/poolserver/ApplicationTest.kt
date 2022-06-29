@@ -1,11 +1,12 @@
-package com.example
+package pl.ludek.poolserver
 
-import com.example.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.mockito.Mockito.*
+import pl.ludek.poolserver.plugins.SimpleModbusRTURelay
+import pl.ludek.poolserver.plugins.configureRouting
 import kotlin.test.*
 
 class ApplicationTest {
@@ -52,7 +53,7 @@ class ApplicationTest {
 
     @Test
     fun testSimpleOnRelay(){
-         val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+         val smor: SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
          `when`(smor.onRelay(1)).thenReturn("Test")
         smor.onRelay(1)
         verify(smor).onRelay(1)
@@ -62,7 +63,7 @@ class ApplicationTest {
 
     @Test
     fun testSimpleOffRelay(){
-        val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+        val smor: SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
         `when`(smor.offRelay(1)).thenReturn("Test")
         smor.offRelay(1)
         verify(smor).offRelay(1)
@@ -100,7 +101,7 @@ class ApplicationTest {
             configureRouting()
         }
         client.post("/relay/0/1").apply {
-            val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+            val smor: SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
             `when`(smor.onRelay(1)).thenReturn("Test")
             smor.onRelay(1)
             verify(smor).onRelay(1)
@@ -115,7 +116,7 @@ class ApplicationTest {
             configureRouting()
         }
         client.post("/relay/0/1").apply {
-            val smor:SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
+            val smor: SimpleModbusRTURelay = spy(SimpleModbusRTURelay())
             `when`(smor.offRelay(1)).thenReturn("Test")
             smor.offRelay(1)
             verify(smor).offRelay(1)

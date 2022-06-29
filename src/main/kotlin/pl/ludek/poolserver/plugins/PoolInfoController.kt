@@ -1,6 +1,5 @@
 package pl.ludek.poolserver.plugins
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -48,8 +47,7 @@ class PoolInfoController {
         return rez
     }
 
-    fun  answerServer(): JsonData {
-        val mapper = jacksonObjectMapper()
+    fun  answerServer(): PoolInfoData {
         val t1 = "889_"
         val t2 = "890_"
         val t3 = "891_"
@@ -62,7 +60,6 @@ class PoolInfoController {
                 dataFromString(data, t3).toFloat(),
                 dataFromString(data, p1).toFloat()
             )
-       // val jsonObj =mapper.writeValueAsString(dataInit)
         return dataInit
     }
 }
