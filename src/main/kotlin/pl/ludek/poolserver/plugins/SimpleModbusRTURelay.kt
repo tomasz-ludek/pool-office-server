@@ -19,10 +19,32 @@ import jssc.SerialPortList
  */
 class SimpleModbusRTURelay {
     //   fun must be a not private for  sam testing...
-    private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):Boolean {
+
+    fun onRelay(startAddress:Int):AnswerRelay{
+        var portController:PortController = PortController()
+        val relayOn = true
+        val rez:Boolean = portController.connectionToPort(startAddress,relayOn)
+        portController.doNothing()
+        return AnswerRelay(startAddress,relayOn,rez)
+    }
+
+    fun offRelay(startAddress:Int):AnswerRelay{
+        var portController: PortController? = PortController()
+        val relayOff = false
+        val rez:Boolean = portController!!.connectionToPort(startAddress,relayOff)
+        portController.doNothing()
+        portController = null
+        return AnswerRelay(startAddress,relayOff,rez)
+    }
+}
+@kotlinx.serialization.Serializable
+data class AnswerRelay(val relayNumber: Int, val stateRelay:Boolean, val errorRelay:Boolean)
+
+private class PortController(){
+     fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):Boolean {
         val dev_list = SerialPortList.getPortNames()
-        if (dev_list.size !=0) {
-            var serialParameters: SerialParameters? = null
+        if (dev_list.isNotEmpty()) {
+          //  var serialParameters: SerialParameters
             var master: ModbusSerialMaster? = null
             val deviceName = "/dev/ttyAMA1"
             val baudrate = 9600
@@ -41,7 +63,7 @@ class SimpleModbusRTURelay {
             val untild = 1
             var portNumber = startAddress - 1
             try {
-                serialParameters = SerialParameters()
+                val serialParameters: SerialParameters = SerialParameters()
                 serialParameters.portName = deviceName
                 serialParameters.baudRate = baudrate
                 serialParameters.databits = dataBits
@@ -53,30 +75,19 @@ class SimpleModbusRTURelay {
                 // serialParameters.flowControlOut = flowControlOut
                 // serialParameters.flowControlIn = flowControlIn
                 // serialParameters.flowControlOut = flowControlOut
-                master =  ModbusSerialMaster(serialParameters)
+                 master =  ModbusSerialMaster(serialParameters)
                 master.connect()
                 master.writeCoil(untild,portNumber,dataOnOff)
+
             }catch (data:Exception ) {
                 return true
             }finally {
-                if(master != null){master.disconnect()}
+                master?.disconnect()
             }
             return false
         }else {return true}
     }
-
-    fun onRelay(startAddress:Int):AnswerRelay{
-        val relayOn = true
-        val rez:Boolean = connectionToPort(startAddress,relayOn)
-        return AnswerRelay(startAddress,relayOn,rez)
-    }
-
-    fun offRelay(startAddress:Int):AnswerRelay{
-        val relayOff = false
-        val rez:Boolean = connectionToPort(startAddress,relayOff)
-        return AnswerRelay(startAddress,relayOff,rez)
+    fun doNothing(){
+        println("Do nothing")
     }
 }
-@kotlinx.serialization.Serializable
-data class AnswerRelay(val relayNumber: Int, val stateRelay:Boolean, val errorRelay:Boolean)
-
