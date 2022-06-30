@@ -24,7 +24,7 @@ class PoolInfoController {
             .build()
 
         client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw IOException("Problem - $response")
+            if (!response.isSuccessful) throw IOException("Problem")
             for ((name, value) in response.headers) {
                 println("$name: $value")
             }
@@ -48,18 +48,26 @@ class PoolInfoController {
     }
 
     fun  answerServer(): PoolInfoData {
-        val t1 = "889_"
-        val t2 = "890_"
-        val t3 = "891_"
-        val p1 = "975_"
-        val data: String = dataFromSensor().toString()
-        val dataInit: PoolInfoData =
-            PoolInfoData(
-                dataFromString(data, t1).toFloat(),
-                dataFromString(data, t2).toFloat(),
-                dataFromString(data, t3).toFloat(),
-                dataFromString(data, p1).toFloat()
-            )
-        return dataInit
+
+        try {
+            val t1 = "889_"
+            val t2 = "890_"
+            val t3 = "891_"
+            val p1 = "975_"
+            val data: String = dataFromSensor().toString()
+            val dataInit: PoolInfoData =
+                PoolInfoData(
+                    dataFromString(data, t1).toFloat(),
+                    dataFromString(data, t2).toFloat(),
+                    dataFromString(data, t3).toFloat(),
+                    dataFromString(data, p1).toFloat(),
+                )
+            return dataInit
+
+        }catch (data: Exception){
+            println("Sensor connection error.")
+            return PoolInfoData(0.0f,0.0f,0.0f,0.0f)
+        }
+
     }
 }
