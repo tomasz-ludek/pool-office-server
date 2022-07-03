@@ -57,12 +57,15 @@ class SimpleModbusRTURelay {
                 master.connect()
                 master.writeCoil(untild,portNumber,dataOnOff)
             }catch (data:Exception ) {
+                println("No connection to serial port")
                 return true
             }finally {
                 if(master != null){master.disconnect()}
             }
             return false
-        }else {return true}
+        }else {
+            println("No serial port")
+            return true}
     }
 
     fun onRelay(startAddress:Int):AnswerRelay{
@@ -79,4 +82,3 @@ class SimpleModbusRTURelay {
 }
 @kotlinx.serialization.Serializable
 data class AnswerRelay(val relayNumber: Int, val stateRelay:Boolean, val errorRelay:Boolean)
-

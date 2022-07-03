@@ -16,13 +16,11 @@ class PoolInfoController {
         val username = "ludex"
         val password = "trickypass"
         val postString = "gt=889,890,664,500,893,974a,891,892,892b,976,978,977,975a,975b,899,903,975,974,"
-
         val request = Request.Builder()
             .url(urlBase)
             .addHeader("Authorization", Credentials.basic(username, password))
             .post(postString.toRequestBody())
             .build()
-
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Problem")
             for ((name, value) in response.headers) {
@@ -48,7 +46,6 @@ class PoolInfoController {
     }
 
     fun  answerServer(): PoolInfoData {
-
         try {
             val t1 = "889_"
             val t2 = "890_"
@@ -63,11 +60,9 @@ class PoolInfoController {
                     dataFromString(data, p1).toFloat(),
                 )
             return dataInit
-
         }catch (data: Exception){
             println("Sensor connection error.")
             return PoolInfoData(0.0f,0.0f,0.0f,0.0f)
         }
-
     }
 }
