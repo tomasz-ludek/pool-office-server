@@ -81,25 +81,13 @@ class SimpleModbusRTURelay {
     fun getStateAllRelay(): RelayState {
         val dataState = getStateRelay()
         if (dataState == null){
-        return RelayState(false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true)
+        return RelayState(Array<Boolean>(9){true})
         }else{
-            return RelayState(dataState.getBit(0),
-                dataState.getBit(1),
-                dataState.getBit(2),
-                dataState.getBit(3),
-                dataState.getBit(4),
-                dataState.getBit(5),
-                dataState.getBit(6),
-                dataState.getBit(7),
-                false)
+            val array:Array<Boolean> = Array<Boolean>(9){false}
+            for (i in 0..7){
+                array.set(i,dataState.getBit(i))
+            }
+            return RelayState(array)
         }
     }
 
@@ -138,12 +126,4 @@ class SimpleModbusRTURelay {
 data class AnswerRelay(val relayNumber: Int, val stateRelay:Boolean, val errorRelay:Boolean)
 
 @kotlinx.serialization.Serializable
-data class RelayState(val relayFirst:Boolean,
-                      val relaySecond:Boolean,
-                      val relayThird:Boolean,
-                      val relayFourth:Boolean,
-                      val relayFifth:Boolean,
-                      val relaySixth:Boolean,
-                      val relaySeventh:Boolean,
-                      val relayEighth:Boolean,
-                      val errorRelay:Boolean)
+data class RelayState(val relayAnswer:Array<Boolean>)
