@@ -11,10 +11,8 @@ fun Application.configureRouting() {
         get("/pool-info"){
             return@get call.respond(poolInfoController.answerServer())
         }
-        get("/relay-state"){
-           return@get call.respond(simpleModbusRTURelay.getStateAllRelay())
-        }
         route("/relay"){
+            get("/state"){return@get call.respond(simpleModbusRTURelay.getStateAllRelay())}
             route("/0"){
                 post("/1") {
                     return@post call.respond(simpleModbusRTURelay.onRelay(1)) }
