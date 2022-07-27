@@ -11,13 +11,15 @@ fun Application.configureRouting() {
         get("/pool-info") {
             return@get call.respond(poolInfoController.answerServer())
         }
-        get("/relay-state") {
-            return@get call.respond(simpleModbusRTURelay.getStateAllRelay())
-        }
-        post("/relay/{relay}/{state}") {
-            val relay = call.parameters["relay"]!!.toInt()
-            val state = call.parameters["state"]!!.toInt() == 1
-            return@post call.respond(simpleModbusRTURelay.switchRelay(relay, state))
+        route("/relay") {
+            get {
+                return@get call.respond(simpleModbusRTURelay.getStateAllRelay())
+            }
+            post("/{relay}/{state}") {
+                val relay = call.parameters["relay"]!!.toInt()
+                val state = call.parameters["state"]!!.toInt() == 1
+                return@post call.respond(simpleModbusRTURelay.switchRelay(relay, state))
+            }
         }
     }
 }
