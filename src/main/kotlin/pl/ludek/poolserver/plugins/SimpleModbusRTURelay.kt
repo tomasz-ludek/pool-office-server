@@ -42,16 +42,9 @@ class SimpleModbusRTURelay {
             return true}
     }
 
-    fun onRelay(startAddress:Int):AnswerRelay{
-        val relayOn = true
-        val rez:Boolean = connectionToPort(startAddress,relayOn)
-        return AnswerRelay(startAddress,relayOn,rez)
-    }
-
-    fun offRelay(startAddress:Int):AnswerRelay{
-        val relayOff = false
-        val rez:Boolean = connectionToPort(startAddress,relayOff)
-        return AnswerRelay(startAddress,relayOff,rez)
+    fun switchRelay(startAddress: Int, state: Boolean): AnswerRelay {
+        val result = connectionToPort(startAddress, state)
+        return AnswerRelay(startAddress, state, result)
     }
 
     private fun getStateRelay(): BitVector? {
@@ -123,7 +116,7 @@ class SimpleModbusRTURelay {
     }
 }
 @kotlinx.serialization.Serializable
-data class AnswerRelay(val relayNumber: Int, val stateRelay:Boolean, val errorRelay:Boolean)
+data class AnswerRelay(val relayNumber: Int, val stateRelay: Boolean, val errorRelay: Boolean)
 
 @kotlinx.serialization.Serializable
-data class RelayState(val relayAnswer:Array<Boolean>)
+data class RelayState(val relayAnswer: Array<Boolean>)
