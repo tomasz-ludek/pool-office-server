@@ -59,7 +59,7 @@ class PoolInfoController {
                     dataFromString(data, t1).toFloat(),
                     dataFromString(data, t2).toFloat(),
                     dataFromString(data, t3).toFloat(),
-                    dataFromString(data, p1).toFloat(),
+                    dataFromString(data, p1).toFloat()*10,
                     false
                 )
             return dataInit
