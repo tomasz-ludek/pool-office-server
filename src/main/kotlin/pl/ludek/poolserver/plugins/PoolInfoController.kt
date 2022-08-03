@@ -8,8 +8,9 @@ import java.io.IOException
 
 class PoolInfoController {
 @kotlinx.serialization.Serializable
-     data class PoolInfoData (val t1: Float, val t2:Float, val t3: Float, val p1: Float, val errorRelay: Boolean)
-
+     data class PoolInfoData (val t1: Float, val t2:Float, val t3: Float, val p1: Float, val errorCode: Int)
+        private val noError = 0
+        private val error = 1
         private fun dataFromSensor(): String? {
         val client = OkHttpClient.Builder().build()
         val urlBase = "http://192.168.2.169/user/cgi-bin/edition.cgi"
@@ -60,12 +61,12 @@ class PoolInfoController {
                     dataFromString(data, t2).toFloat(),
                     dataFromString(data, t3).toFloat(),
                     dataFromString(data, p1).toFloat()*10,
-                    false
+                    noError
                 )
             return dataInit
         }catch (data: Exception){
             println("Sensor connection error.")
-            return PoolInfoData(0.0f,0.0f,0.0f,0.0f, true)
+            return PoolInfoData(0.0f,0.0f,0.0f,0.0f, error)
         }
     }
 }
