@@ -21,27 +21,31 @@ import jssc.SerialPortList
 class SimpleModbusRTURelay {
     private val noError = 0
     private val error = 1
+
     //   fun must be a not private for  sam testing...
-    private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):Int {
+    private fun connectionToPort(startAddress: Int, dataOnOff: Boolean): Int {
         val dev_list = SerialPortList.getPortNames()
-        if (dev_list.size !=0) {
+        if (dev_list.size != 0) {
             var master: ModbusSerialMaster? = null
             val untild = 1
             var portNumber = startAddress - 1
             try {
                 master = getMaster()
                 master.connect()
-                master.writeCoil(untild,portNumber,dataOnOff)
-            }catch (data:Exception ) {
+                master.writeCoil(untild, portNumber, dataOnOff)
+            } catch (data: Exception) {
                 println("No connection to serial port")
                 return error
-            }finally {
-                if(master != null){master.disconnect()}
+            } finally {
+                if (master != null) {
+                    master.disconnect()
+                }
             }
             return noError
-        }else {
+        } else {
             println("No have serial port")
-            return error}
+            return error
+        }
     }
 
     fun switchRelay(startAddress: Int, state: Boolean): AnswerRelay {
@@ -50,24 +54,26 @@ class SimpleModbusRTURelay {
     }
 
     private fun getStateRelay(): BitVector? {
-        var rez:BitVector
+        var rez: BitVector
         val dev_list = SerialPortList.getPortNames()
-        if (dev_list.size !=0) {
+        if (dev_list.size != 0) {
             val ref = 0
             val countBit = 8
             var master: ModbusSerialMaster? = null
             try {
                 master = getMaster()
                 master.connect()
-                rez = master.readCoils(ref,countBit)
-            }catch (data:Exception ) {
+                rez = master.readCoils(ref, countBit)
+            } catch (data: Exception) {
                 println("No connection to serial port")
                 return null
-            }finally {
-                if(master != null){master.disconnect()}
+            } finally {
+                if (master != null) {
+                    master.disconnect()
+                }
             }
             return rez
-        }else{
+        } else {
             println("No have port")
             return null
         }
@@ -75,11 +81,11 @@ class SimpleModbusRTURelay {
 
     fun getStateAllRelay(): RelayState {
         val dataState = getStateRelay()
-        if (dataState == null){
-        return RelayState(Array(8){false}, error)
-        }else{
-            val array= Array(8){false}
-            for (i in array.indices){
+        if (dataState == null) {
+            return RelayState(Array(8) { false }, error)
+        } else {
+            val array = Array(8) { false }
+            for (i in array.indices) {
                 array[i] = dataState.getBit(i)
             }
             return RelayState(array, noError)
@@ -102,21 +108,22 @@ class SimpleModbusRTURelay {
         //val rs485TxEnableActiveHigh = true
         // val rs485DelayBeforeTxMicroseconds
         // val rs485DelayAfterTxMicroseconds
-            serialParameters = SerialParameters()
-            serialParameters.portName = deviceName
-            serialParameters.baudRate = baudrate
-            serialParameters.databits = dataBits
-            serialParameters.stopbits = stopBit
-            serialParameters.parity = parity
-            serialParameters.encoding = encoding
-            serialParameters.isEcho = paramsEcho
-            serialParameters.rs485Mode = rs485Mode
-            // serialParameters.flowControlOut = flowControlOut
-            // serialParameters.flowControlIn = flowControlIn
-            // serialParameters.flowControlOut = flowControlOut
-          return ModbusSerialMaster(serialParameters)
+        serialParameters = SerialParameters()
+        serialParameters.portName = deviceName
+        serialParameters.baudRate = baudrate
+        serialParameters.databits = dataBits
+        serialParameters.stopbits = stopBit
+        serialParameters.parity = parity
+        serialParameters.encoding = encoding
+        serialParameters.isEcho = paramsEcho
+        serialParameters.rs485Mode = rs485Mode
+        // serialParameters.flowControlOut = flowControlOut
+        // serialParameters.flowControlIn = flowControlIn
+        // serialParameters.flowControlOut = flowControlOut
+        return ModbusSerialMaster(serialParameters)
     }
 }
+
 @kotlinx.serialization.Serializable
 data class AnswerRelay(val relayNumber: Int, val stateRelay: Boolean, val errorCode: Int)
 
