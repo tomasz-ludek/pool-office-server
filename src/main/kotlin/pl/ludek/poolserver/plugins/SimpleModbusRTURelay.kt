@@ -76,11 +76,11 @@ class SimpleModbusRTURelay {
     fun getStateAllRelay(): RelayState {
         val dataState = getStateRelay()
         if (dataState == null){
-        return RelayState(Array<Boolean>(8){false}, error)
+        return RelayState(Array(8){false}, error)
         }else{
-            val array= Array<Boolean>(8){false}
-            for (i in 0..array.size-1){
-                array.set(i,dataState.getBit(i))
+            val array= Array(8){false}
+            for (i in array.indices){
+                array[i] = dataState.getBit(i)
             }
             return RelayState(array, noError)
         }
