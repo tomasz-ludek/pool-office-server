@@ -19,8 +19,10 @@ import jssc.SerialPortList
   1 or 0                  write values
  */
 class SimpleModbusRTURelay {
+    private val noError = 0
+    private val error = 1
     //   fun must be a not private for  sam testing...
-    private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):Boolean {
+    private fun connectionToPort(startAddress:Int, dataOnOff:Boolean ):Int {
         val dev_list = SerialPortList.getPortNames()
         if (dev_list.size !=0) {
             var master: ModbusSerialMaster? = null
@@ -32,14 +34,14 @@ class SimpleModbusRTURelay {
                 master.writeCoil(untild,portNumber,dataOnOff)
             }catch (data:Exception ) {
                 println("No connection to serial port")
-                return true
+                return error
             }finally {
                 if(master != null){master.disconnect()}
             }
-            return false
+            return noError
         }else {
             println("No have serial port")
-            return true}
+            return error}
     }
 
     fun switchRelay(startAddress: Int, state: Boolean): AnswerRelay {
@@ -74,13 +76,13 @@ class SimpleModbusRTURelay {
     fun getStateAllRelay(): RelayState {
         val dataState = getStateRelay()
         if (dataState == null){
-        return RelayState(Array<Boolean>(9){true})
+        return RelayState(Array(8){false}, error)
         }else{
-            val array:Array<Boolean> = Array<Boolean>(9){false}
-            for (i in 0..7){
-                array.set(i,dataState.getBit(i))
+            val array= Array(8){false}
+            for (i in array.indices){
+                array[i] = dataState.getBit(i)
             }
-            return RelayState(array)
+            return RelayState(array, noError)
         }
     }
 
@@ -116,7 +118,7 @@ class SimpleModbusRTURelay {
     }
 }
 @kotlinx.serialization.Serializable
-data class AnswerRelay(val relayNumber: Int, val stateRelay: Boolean, val errorRelay: Boolean)
+data class AnswerRelay(val relayNumber: Int, val stateRelay: Boolean, val errorCode: Int)
 
 @kotlinx.serialization.Serializable
-data class RelayState(val relayAnswer: Array<Boolean>)
+data class RelayState(val relayAnswer: Array<Boolean>, val errorCode: Int)
