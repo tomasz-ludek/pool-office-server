@@ -7,11 +7,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
 class PoolInfoController {
-@kotlinx.serialization.Serializable
-     data class PoolInfoData (val t1: Float, val t2:Float, val t3: Float, val p1: Float, val errorCode: Int)
-        private val noError = 0
-        private val error = 1
-        private fun dataFromSensor(): String? {
+    @kotlinx.serialization.Serializable
+    data class PoolInfoData(val t1: Float, val t2: Float, val t3: Float, val p1: Float, val errorCode: Int)
+
+    private val noError = 0
+    private val error = 1
+    private fun dataFromSensor(): String? {
         val client = OkHttpClient.Builder().build()
         val urlBase = "http://192.168.2.169/user/cgi-bin/edition.cgi"
         val username = "ludex"
@@ -33,22 +34,24 @@ class PoolInfoController {
         }
     }
 
-    private fun dataFromString(inputStr :String, sensorNumber: String): String{
+    private fun dataFromString(inputStr: String, sensorNumber: String): String {
         val numberStartSubstring = inputStr.indexOf(sensorNumber)
         val subString = inputStr.substring(numberStartSubstring)
         val number1 = subString.indexOf("_")
         val number2 = subString.indexOf(",")
         var rez = ""
         for (i in number1 + 1 until number2) {
-            if(i == number2-1){
-                rez += "."+ subString[i]
-            }else{rez += subString[i]}
+            if (i == number2 - 1) {
+                rez += "." + subString[i]
+            } else {
+                rez += subString[i]
+            }
 
         }
         return rez
     }
 
-    fun  answerServer(): PoolInfoData {
+    fun answerServer(): PoolInfoData {
         try {
             val t1 = "889_"
             val t2 = "890_"
@@ -60,13 +63,13 @@ class PoolInfoController {
                     dataFromString(data, t1).toFloat(),
                     dataFromString(data, t2).toFloat(),
                     dataFromString(data, t3).toFloat(),
-                    dataFromString(data, p1).toFloat()*10,
+                    dataFromString(data, p1).toFloat() * 10,
                     noError
                 )
             return dataInit
-        }catch (data: Exception){
+        } catch (data: Exception) {
             println("Sensor connection error.")
-            return PoolInfoData(0.0f,0.0f,0.0f,0.0f, error)
+            return PoolInfoData(0.0f, 0.0f, 0.0f, 0.0f, error)
         }
     }
 }
